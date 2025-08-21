@@ -1,0 +1,6 @@
+@echo off
+echo Starting backend servers...
+start "API Server" cmd /k "cd /d C:\path\to\your\backend && npm start"
+start "Data Server" cmd /k "cd /d C:\path\to\your\data-server && npm start"
+echo Servers starting...
+pause

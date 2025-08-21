@@ -1,0 +1,14 @@
+{
+  "/api/*": {
+    "target": "https://zetta-news.online:3000",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/assets/data/*": {
+    "target": "https://zetta-news.online",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

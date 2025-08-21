@@ -1,0 +1,38 @@
+<div class="slider-3-blog ratio_65 no-arrow product-wrapper">
+  <owl-carousel-o [options]="sliderOption ? sliderOption : bannerSlider ">
+    @if (blogService.skeletonLoader) {
+      @for (item of skeletonItems; track item) {
+        <ng-container carouselSlide>
+          <ng-template carouselSlide>
+            <app-skeleton-blog></app-skeleton-blog>
+          </ng-template>
+        </ng-container>
+      }
+    } @else {
+      @for (blog of blogs; track blog) {
+        <ng-container carouselSlide>
+          <ng-template carouselSlide>
+            <div>
+              <div class="blog-box ratio_65" [class.sticky-blog-box]="blog.sticky">
+                @if (blog.featured) {
+                  <div class="blog-label-tag">
+                    <span>Featured</span>
+                  </div>
+                }
+                <div class="blog-box-image">
+                  <a [routerLink]="['/blog/', blog?.slug]" class="blog-image bg-size"
+                    [ngStyle]="{'background-image': 'url(' + (blog.thumbnail ? blog?.thumbnail?.original_url : 'assets/images/product.png') + ')'}">
+                  </a>
+                </div>
+                <a [routerLink]="['/blog/', blog?.slug]" class="blog-detail">
+                  <h6>{{ blog.createdAt | date: 'dd MMM yyyy hh:mm:a' }}</h6>
+                  <h5>{{ blog.title }}</h5>
+                </a>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      }
+    }
+  </owl-carousel-o>
+</div>

@@ -1,0 +1,7 @@
+.logo-img {
+  transition: filter 0.3s ease;
+}
+
+:host-context(.dark) .logo-img {
+  filter: invert(1) brightness(1.2);
+}
