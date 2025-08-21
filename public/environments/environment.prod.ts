@@ -5,8 +5,8 @@
 export const environment = {
   production: true,
   apiUrl: 'https://api.zetta-news.zetta-demo.space/api',
-  baseURL: 'https://zetta-news.online/',
-  URL: 'https://zetta-news.online/assets/data'
+  baseURL: 'https://zettanews-front.vercel.app/',
+  URL: 'https://zettanews-front.vercel.app/assets/data'
 };
   
 /*
