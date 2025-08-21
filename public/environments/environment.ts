@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   apiUrl: 'https://backend-mpyg.onrender.com/api',
-  // baseURL: 'https://zettanews-front.vercel.app/',
-  // URL: 'https://zettanews-front.vercel.app/assets/data',
-  // fallbackMode: true
+  baseURL: 'https://zettanews-front.vercel.app/',
+  URL: 'https://zettanews-front.vercel.app/assets/data',
+  fallbackMode: true
 };
 
 // export const environment = {
