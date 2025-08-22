@@ -6,6 +6,6 @@
     }
   ],
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/fastkart-front-rest",
+  "outputDirectory": "dist/fastkart-front-rest/browser",
   "framework": "angular"
 }
