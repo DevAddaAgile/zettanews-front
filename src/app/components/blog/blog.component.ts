@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { BlogService } from '../../shared/services/blog.service';
@@ -47,7 +47,7 @@ export class BlogComponent {
   public style: string;
   public sidebar: string = 'left_sidebar';
 
-  constructor(private store: Store, private route: ActivatedRoute,
+  constructor(private store: Store, private route: ActivatedRoute, private router: Router,
     public blogService: BlogService) {
     this.route.queryParams.subscribe(params => {
       this.filter.category = params['category'] ? params['category'] : '';
@@ -88,7 +88,7 @@ export class BlogComponent {
 
   openBlog(slug: string | undefined) {
     if (slug) {
-      window.open(`/blog/${slug}`, '_blank');
+      this.router.navigate(['/blog', slug]);
     }
   }
 
