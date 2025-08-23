@@ -42,7 +42,11 @@
                 <div class="col-12 phone-field">
                   <div class="form-floating log-in-form">
                     <input type="tel" class="form-control" id="phone" id="phone" formControlName="phone" placeholder="{{ 'phone' | translate }}">
-                    <label for="phone">{{ 'phone_number' | translate }} ({{ 'optional' | translate }})</label>
+                    <label for="phone">{{ 'phone_number' | translate }}</label>
+                    @if (form.controls['phone'].touched && form.controls['phone'].errors?.['required']) {
+                      <div class="invalid-feedback">Phone: {{ form.controls['phone'].value || 'empty' }}</div>
+                    }
+                    
                   </div>
                 </div>
               }
