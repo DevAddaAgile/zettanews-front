@@ -2,21 +2,21 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// export const environment = {
-//   production: false,
-//   apiUrl: 'https://backend-mpyg.onrender.com/api',
-//   baseURL: 'https://zettanews-front.vercel.app/',
-//   URL: 'https://zettanews-front.vercel.app/assets/data',
-//   fallbackMode: true
-// };
-
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3004/api',
-  baseURL: 'http://localhost:4200/',
-  URL: 'http://localhost:4200/assets/data',
+  apiUrl: 'https://backend-mpyg.onrender.com/api',
+  baseURL: 'https://zettanews-front.vercel.app/',
+  URL: 'https://zettanews-front.vercel.app/assets/data',
   fallbackMode: true
 };
+
+// export const environment = {
+//   production: false,
+//   apiUrl: 'http://localhost:3004/api',
+//   baseURL: 'http://localhost:4200/',
+//   URL: 'http://localhost:4200/assets/data',
+//   fallbackMode: true
+// };
 
 /*
 * For easier debugging in development mode, you can import the following file
