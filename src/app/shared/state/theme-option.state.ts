@@ -18,7 +18,7 @@ export class ThemeOptionStateModel {
     theme_option: null,
     exit: true,
     cookies: true,
-    newsletter: true
+    newsletter: false
   },
 })
 @Injectable()
