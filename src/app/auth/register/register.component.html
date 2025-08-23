@@ -44,7 +44,7 @@
                     <input type="number" class="form-control" id="phone" id="phone" formControlName="phone" placeholder="{{ 'phone' | translate }}">
                     <label for="phone">{{ 'phone_number' | translate }}</label>
                     @if (form.controls['phone'].touched && form.controls['phone'].errors?.['required']) {
-                      <div class="invalid-feedback">{{ 'phone_number_is_required' | translate }}</div>
+                      <div class="invalid-feedback">Phone: {{ form.controls['phone'].value || 'empty' }}</div>
                     }
                     <select2 class="custom-select intl-tel-input"
                       [data]="codes"

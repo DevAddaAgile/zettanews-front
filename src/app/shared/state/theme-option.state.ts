@@ -16,9 +16,9 @@ export class ThemeOptionStateModel {
   name: "theme_option",
   defaults: {
     theme_option: null,
-    exit: true,
-    cookies: true,
-    newsletter: false
+    exit: false, // Changed from true to false to disable exit modal
+    cookies: false, // Changed from true to false to disable cookie banner
+    newsletter: false // Already false, keeping it disabled
   },
 })
 @Injectable()

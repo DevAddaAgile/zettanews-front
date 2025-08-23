@@ -21,7 +21,7 @@ export class RecentPurchasePopupComponent {
   public product: Product | null;
   public show: boolean = false;
   public min: number = 10;
-  public popup_enable: boolean = true;
+  public popup_enable: boolean = false; // Changed from true to false to disable popup
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {  

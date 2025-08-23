@@ -31,7 +31,8 @@ export class NewsletterModalComponent {
   }
 
   ngAfterViewInit(): void {
-    if(this.newsletter === true){
+    // Disable newsletter modal - set to false to prevent popup
+    if(false){ // Changed from this.newsletter === true to false
       setTimeout(() => {
       this.openModal();
       }, 3000);
