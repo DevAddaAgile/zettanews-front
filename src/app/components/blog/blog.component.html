@@ -45,7 +45,7 @@
                         </a>
                         <p [innerHTML]="blog.description | summary:200"></p>
                         @if ((themeOption$ | async)?.blog?.read_more_enable) {
-                          <a (click)="openBlog(blog?.slug)" class="blog-button" style="cursor: pointer;">
+                          <a [href]="'/blog/' + blog?.slug" target="_blank" rel="noopener noreferrer" class="blog-button">
                             {{ 'read_more' | translate }} <i class="ri-arrow-right-fill"></i>
                           </a>
                         }
