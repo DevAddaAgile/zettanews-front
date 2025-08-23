@@ -2,8 +2,8 @@
     "id": 1,
     "options": {
       "general": {
-        "site_title": "FastKart Marketplace: Where Vendors Shine Together",
-        "site_tagline": "Shop Unique, Sell Exceptional – FastKart's Multi-Vendor Universe.",
+        "site_title": "Zetta News",
+        "site_tagline": "Zetta News",
         "cart_style": "cart_sidebar",
         "back_to_top_enable": true,
         "language_direction": "ltr",
@@ -63,7 +63,7 @@
         "page_top_bar_enable": true,
         "top_bar_content": [
           {
-            "content": "Get the latest NEws about Zetta-ERP"
+            "content": "Get the latest News about Zetta-ERP"
           }
         ],
         "page_top_bar_dark": false,
