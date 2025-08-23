@@ -1,11 +1,10 @@
 {
-
   "rewrites": [
     {
       "source": "/(.*)",
-     "destination": "/browser/index.csr.html"
+      "destination": "/index.html"
     }
   ],
   "buildCommand": "npm run build",
-"outputDirectory": "dist/fastkart-front-rest/browser"
+  "outputDirectory": "dist/fastkart-front-rest/browser"
 }
