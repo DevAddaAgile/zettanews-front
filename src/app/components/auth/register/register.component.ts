@@ -2,13 +2,13 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { CustomValidators } from '../../../shared/validator/password-match';
 import { Register } from '../../../shared/action/auth.action';
 import { Breadcrumb } from '../../../shared/interface/breadcrumb';
 import * as data from '../../../shared/data/country-code';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../shared/components/widgets/button/button.component';
 import { Select2Module } from 'ng-select2-component';
+import { CommonModule } from '@angular/common';
 
 import { BreadcrumbComponent } from '../../../shared/components/widgets/breadcrumb/breadcrumb.component';
 import { isPlatformBrowser } from '@angular/common';
@@ -16,7 +16,8 @@ import { isPlatformBrowser } from '@angular/common';
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
-    imports: [BreadcrumbComponent, ReactiveFormsModule, Select2Module, ButtonComponent, RouterLink, TranslateModule]
+    standalone: true,
+    imports: [CommonModule, BreadcrumbComponent, ReactiveFormsModule, Select2Module, ButtonComponent, RouterLink, TranslateModule]
 })
 export class RegisterComponent {
 
@@ -39,18 +40,9 @@ export class RegisterComponent {
     this.form = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
-      country_code: new FormControl('91', [Validators.required]),
+      phone: new FormControl(''), // Made optional
       password: new FormControl('', [Validators.required]),
-      password_confirmation: new FormControl('', [Validators.required]),
-    },{validator : CustomValidators.MatchValidator('password', 'password_confirmation')});
-  }
-
-  get passwordMatchError() {
-    return (
-      this.form.getError('mismatch') &&
-      this.form.get('password_confirmation')?.touched
-    );
+    });
   }
 
   submit() {
@@ -59,9 +51,19 @@ export class RegisterComponent {
       return
     }
     if(this.form.valid) {
-      this.store.dispatch(new Register(this.form.value)).subscribe({
+      // Prepare data for API - only include phone if it has a value
+      const formData = this.form.value;
+      if (!formData.phone) {
+        delete formData.phone;
+      }
+      
+      this.store.dispatch(new Register(formData)).subscribe({
           complete: () => {
-            this.router.navigateByUrl('/account/dashboard');
+            // Registration successful, you can redirect or show additional success message
+            console.log('Registration completed');
+          },
+          error: (error) => {
+            console.error('Registration error:', error);
           }
         }
       );

@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { AccountClear, GetUserDetails } from "../action/account.action";
 import { Register, Login, ForgotPassWord, VerifyEmailOtp, UpdatePassword, Logout, AuthClear } from "../action/auth.action";
 import { NotificationService } from "../services/notification.service";
+import { AuthService } from "../services/auth.service";
+import { catchError, tap } from "rxjs/operators";
+import { of } from "rxjs";
 
 export interface AuthStateModel {
   email: String;
@@ -23,7 +26,7 @@ export interface AuthStateModel {
 export class AuthState {
 
   constructor(private store: Store, public router: Router,
-    private notificationService: NotificationService) {}
+    private notificationService: NotificationService, private authService: AuthService) {}
 
 
   ngxsOnInit(ctx: StateContext<AuthStateModel>) {
@@ -57,7 +60,18 @@ export class AuthState {
 
   @Action(Register)
   register(ctx: StateContext<AuthStateModel>, action: Register) {
-    // Register Logic Here
+    return this.authService.register(action.payload).pipe(
+      tap((response) => {
+        // Show success message for 201 status
+        this.notificationService.showSuccess('User registered successfully!');
+        // You can add additional logic here like storing user data or redirecting
+      }),
+      catchError((error) => {
+        // Show error message
+        this.notificationService.showError('Registration failed. Please try again.');
+        return of(error);
+      })
+    );
   }
 
   @Action(Login)
