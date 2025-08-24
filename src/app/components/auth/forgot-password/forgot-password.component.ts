@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { Store } from "@ngxs/store";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { ForgotPassWord } from "../../../shared/action/auth.action";
 import { Breadcrumb } from '../../../shared/interface/breadcrumb';
 import { TranslateModule } from "@ngx-translate/core";
@@ -14,17 +14,21 @@ import { BreadcrumbComponent } from "../../../shared/components/widgets/breadcru
     selector: "app-forgot-password",
     templateUrl: "./forgot-password.component.html",
     styleUrls: ["./forgot-password.component.scss"],
+    standalone: true,
     imports: [
         BreadcrumbComponent,
         AlertComponent,
         ReactiveFormsModule,
         ButtonComponent,
-        TranslateModule
+        TranslateModule,
+        RouterLink
     ]
 })
 export class ForgotPasswordComponent {
 
   public form: FormGroup;
+  public isSubmitted: boolean = false;
+  public submittedEmail: string = '';
   public breadcrumb: Breadcrumb = {
     title: "Forgot Password",
     items: [{ label: 'Forgot Password', active: true }]
@@ -43,10 +47,16 @@ export class ForgotPasswordComponent {
     if(this.form.valid) {
       this.store.dispatch(new ForgotPassWord(this.form.value)).subscribe({
         complete: () => { 
-          this.router.navigateByUrl('/auth/otp'); 
+          this.submittedEmail = this.form.value.email;
+          this.isSubmitted = true;
         }     
       });
     }
+  }
+
+  resetForm() {
+    this.isSubmitted = false;
+    this.form.reset();
   }
 
 }

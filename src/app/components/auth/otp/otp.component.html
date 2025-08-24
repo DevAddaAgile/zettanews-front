@@ -11,8 +11,8 @@
         <app-alert></app-alert>
         <div class="log-in-box">
           <div class="log-in-title">
-            <h3 class="text-title">{{ 'please_enter_the_one_time_password_to_verify_your_account' | translate }}</h3>
-            <h5 class="text-content">{{ 'a_code_has_been_sent_to' | translate }} <span>{{ 'email' | translate }}</span></h5>
+            <h3 class="text-title">{{ 'please_enter_the_reset_token_to_continue' | translate }}</h3>
+            <h5 class="text-content">{{ 'a_reset_token_has_been_generated_for' | translate }} <span>{{ email }}</span></h5>
           </div>
           <form [formGroup]="form" (ngSubmit)="submit()">
             <div class="outer-otp">
@@ -22,7 +22,7 @@
                   onKeyPress="if(this.value.length==5) return false;" />
               </div>
             </div>
-            <app-button [class]="'btn btn-animation w-100 mt-3'" [id]="'forgot_btn'">{{ 'validate' | translate }}</app-button>
+            <app-button [class]="'btn btn-animation w-100 mt-3'" [id]="'forgot_btn'">{{ 'continue' | translate }}</app-button>
           </form>
         </div>
       </div>

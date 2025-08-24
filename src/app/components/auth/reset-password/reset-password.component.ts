@@ -1,33 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { UpdatePassword } from '../../../shared/action/auth.action';
 import { Breadcrumb } from '../../../shared/interface/breadcrumb';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../shared/components/widgets/button/button.component';
-
 import { AlertComponent } from '../../../shared/components/widgets/alert/alert.component';
 import { BreadcrumbComponent } from '../../../shared/components/widgets/breadcrumb/breadcrumb.component';
 
 @Component({
-    selector: 'app-update-password',
-    templateUrl: './update-password.component.html',
-    styleUrls: ['./update-password.component.scss'],
+    selector: 'app-reset-password',
+    templateUrl: './reset-password.component.html',
+    styleUrls: ['./reset-password.component.scss'],
     standalone: true,
     imports: [
         BreadcrumbComponent,
         AlertComponent,
         ReactiveFormsModule,
         ButtonComponent,
-        TranslateModule
+        TranslateModule,
+        RouterLink
     ]
 })
-export class UpdatePasswordComponent {
+export class ResetPasswordComponent implements OnInit {
 
   public form: FormGroup;
-  public email: string;
-  public token: string;
+  public email: string = '';
+  public token: string = '';
+  public isValidToken: boolean = false;
   public breadcrumb: Breadcrumb = {
     title: "Reset Password",
     items: [{ label: 'Reset Password', active: true }]
@@ -36,22 +37,31 @@ export class UpdatePasswordComponent {
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
-    public  router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    // Get email and token from localStorage (set during forgot password)
-    this.email = localStorage.getItem('resetEmail') || '';
-    this.token = localStorage.getItem('resetToken') || '';
-    
-    // If no email or token, redirect to login
-    if (!this.email || !this.token) {
-      this.router.navigate(['/auth/login']);
-      return;
-    }
-    
     this.form = this.formBuilder.group({
       newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl('', [Validators.required]),
     }, { validators: this.passwordMatchValidator });
+  }
+
+  ngOnInit() {
+    // Get token and email from URL parameters
+    this.route.queryParams.subscribe(params => {
+      this.token = params['token'] || '';
+      this.email = params['email'] || '';
+      
+      if (!this.token || !this.email) {
+        this.isValidToken = false;
+        // Redirect to forgot password if no token/email
+        setTimeout(() => {
+          this.router.navigate(['/auth/forgot-password']);
+        }, 2000);
+      } else {
+        this.isValidToken = true;
+      }
+    });
   }
 
   // Custom validator to check if passwords match
@@ -76,7 +86,7 @@ export class UpdatePasswordComponent {
 
   submit() {
     this.form.markAllAsTouched();
-    if(this.form.valid) {
+    if(this.form.valid && this.isValidToken) {
       this.store.dispatch(
           new UpdatePassword({
             email: this.email,

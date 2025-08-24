@@ -15,6 +15,7 @@ import { BreadcrumbComponent } from '../../../shared/components/widgets/breadcru
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    standalone: true,
     imports: [
         BreadcrumbComponent,
         AlertComponent,

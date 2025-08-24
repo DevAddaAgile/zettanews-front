@@ -5,6 +5,7 @@ import { LoginComponent } from "./login/login.component";
 import { OtpComponent } from "./otp/otp.component";
 import { RegisterComponent } from "./register/register.component";
 import { UpdatePasswordComponent } from "./update-password/update-password.component";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 
 export default[
   {
@@ -22,6 +23,10 @@ export default[
   {
     path: "update-password",
     component: UpdatePasswordComponent,
+  },
+  {
+    path: "reset-password",
+    component: ResetPasswordComponent,
   },
   {
     path: "register",

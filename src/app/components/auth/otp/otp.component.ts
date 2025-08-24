@@ -13,6 +13,7 @@ import { BreadcrumbComponent } from '../../../shared/components/widgets/breadcru
     selector: 'app-otp',
     templateUrl: './otp.component.html',
     styleUrls: ['./otp.component.scss'],
+    standalone: true,
     imports: [
         BreadcrumbComponent,
         AlertComponent,
@@ -26,8 +27,8 @@ export class OtpComponent {
   public form: FormGroup;
   public email: string;
   public breadcrumb: Breadcrumb = {
-    title: "OTP",
-    items: [{ label: 'OTP', active: true }]
+    title: "Reset Token",
+    items: [{ label: 'Reset Token', active: true }]
   }
 
   constructor(
@@ -35,7 +36,15 @@ export class OtpComponent {
     public store: Store, 
     public formBuilder: FormBuilder
   ) {
-    this.email = this.store.selectSnapshot(state => state.auth.email);
+    // Get email from localStorage (set during forgot password)
+    this.email = localStorage.getItem('resetEmail') || '';
+    
+    // If no email, redirect to forgot password
+    if (!this.email) {
+      this.router.navigate(['/auth/forgot-password']);
+      return;
+    }
+    
     this.form = this.formBuilder.group({
       otp: new FormControl('', [Validators.required, Validators.minLength(5)]),
     });
@@ -44,16 +53,11 @@ export class OtpComponent {
   submit() {
     this.form.markAllAsTouched();
     if(this.form.valid) {
-      this.store.dispatch(new VerifyEmailOtp({ 
-        email: this.email, 
-        token: this.form.value.otp
-      })).subscribe(
-        {
-          complete: () => { 
-            this.router.navigateByUrl('/auth/update-password'); 
-          }
-        }
-      );
+      // Store the OTP token temporarily (in production, this would be verified)
+      localStorage.setItem('resetToken', this.form.value.otp);
+      
+      // Redirect to update password
+      this.router.navigateByUrl('/auth/update-password'); 
     }
   }
 
