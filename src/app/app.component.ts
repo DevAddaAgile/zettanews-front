@@ -24,7 +24,7 @@ export class AppComponent {
   public isTabInFocus = true;
   public timeoutId: any;
   private currentMessageIndex = 0;
-  private messages = ["⚡ Come Back !!", "🎉 Offers for you..."];
+  private messages = ["Zetta News", "Zetta News"];
   private currentMessage: string;
   private delay = 1000; // Delay between messages in milliseconds
 
